@@ -1,0 +1,5 @@
+*.db
+.vs
+*.filters
+*.user
+/d3d11Renderer/ReadMe.txt
