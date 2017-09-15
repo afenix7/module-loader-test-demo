@@ -29,7 +29,8 @@ namespace valkyr
 	{
 	public:
 		Renderer(){}
-		virtual ~Renderer() {}
+		//virtual ~Renderer() {}
+		virtual ~Renderer() = 0;
 		virtual vint initGraphics(Config* pConfig,vhwnd hwnd) = 0;
 		//virtual vint loadRes() = 0;
 		//virtual void generateRenderList() = 0;

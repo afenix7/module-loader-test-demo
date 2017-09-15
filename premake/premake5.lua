@@ -1,4 +1,5 @@
 -- premake5.lua
+-- when can not find some system related headers can set target platform from win8 to win10
 workspace "walkyrie"
 	startproject "vwin"
 	configurations { "Debug", "Release", "DebugDLL", "ReleaseDLL","DebugLib","ReleaseLib"}
@@ -7,7 +8,8 @@ workspace "walkyrie"
 	
 	filter "configurations:Debug*"
 		defines { "DEBUG" }
-		flags { "Symbols","Unicode","MultiProcessorCompile" }
+		flags { "MultiProcessorCompile" }
+		symbols "on"
 		warnings "Extra"
 		libdirs {"../lib/%{cfg.platform}_%{cfg.buildcfg}","../bin/%{cfg.platform}_%{cfg.buildcfg}"}
 		targetdir "../bin/%{cfg.platform}_%{cfg.buildcfg}"
@@ -15,7 +17,7 @@ workspace "walkyrie"
 
 	filter "configurations:Release*"
 		defines { "NDEBUG" }
-		flags { "Unicode","MultiProcessorCompile" }
+		flags { "MultiProcessorCompile" }
 		optimize "On"
 		libdirs {"../lib/%{cfg.platform}_%{cfg.buildcfg}","../bin/%{cfg.platform}_%{cfg.buildcfg}"}
 		targetdir "../bin/%{cfg.platform}_%{cfg.buildcfg}"
