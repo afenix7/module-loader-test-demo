@@ -42,7 +42,7 @@ namespace valkyr
 		int setLogMgr(LogMgr* logMgr);
 		Renderer* getRenderer();
 		int setRenderer(Renderer* renderer);
-		Config* getConfig();
+		vptr<Config> getConfig();
 
 	private:
 		Engine();
@@ -54,7 +54,7 @@ namespace valkyr
 		Renderer* mRenderer;
 		//std::map<vcstr,vhdll> mPluginMap;
 		std::vector<vhdll> mModuleList;
-		Config* mConfig;
+		vptr<Config> mConfig;
 	};
 
 }

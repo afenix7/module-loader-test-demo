@@ -5,8 +5,9 @@ using namespace valkyr;
 
 Engine* Engine::mSingleton=0;
 
-Engine::Engine() :mLogMgr(0),mRenderer(0),mConfig(new Config())
+Engine::Engine() :mLogMgr(0),mRenderer(0) //,mConfig(new Config())
 {
+	vnew_ptr<Config>(mConfig);
 }
 
 
@@ -157,7 +158,8 @@ vint Engine::unloadModules()
 {
 	for (auto hdll : mModuleList)
 	{
-		LPFNStopFunc lpstopfunc = (LPFNStopFunc)GetProcAddress(hdll, "dllStopPlugin");
+		//LPFNStopFunc lpstopfunc = (LPFNStopFunc)GetProcAddress(hdll, "dllStopPlugin");
+		LPFNStopFunc lpstopfunc = (LPFNStopFunc)vgetsym(hdll, "dllStopPlugin");
 		if (lpstopfunc){
 			lpstopfunc();
 			vfreelib(hdll);
@@ -197,7 +199,7 @@ int Engine::setRenderer(Renderer* renderer)
 		return VOK;
 }
 
-Config* valkyr::Engine::getConfig()
+vptr<Config> valkyr::Engine::getConfig()
 {
 	return mConfig;
 }

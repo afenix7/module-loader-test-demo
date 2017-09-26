@@ -1,9 +1,9 @@
 -- premake5.lua
 -- when can not find some system related headers can set target platform from win8 to win10
 workspace "walkyrie"
-	startproject "vwin"
+	startproject "vapp"
 	configurations { "Debug", "Release", "DebugDLL", "ReleaseDLL","DebugLib","ReleaseLib"}
-	platforms { "Win32", "Win64"}
+	platforms { "Win32", "Win64","Linux"}
 	location "../build"
 	
 	filter "configurations:Debug*"

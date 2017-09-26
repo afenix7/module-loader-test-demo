@@ -15,46 +15,37 @@ public:
 
 	}
 
-	void putInt(vint id, vint item)
+	void putInt(vcstr key, vint item)
 	{
-		intMap[id] = item;
+		intMap[key] = item;
 	}
-	void putCStr(vint id, vcstr item) {
-		cstrMap[id] = item;
+	void putCStr(vcstr key, vcstr item) {
+		cstrMap[key] = item;
 	}
-	void putDouble(vint id, vdouble item) {
-		doubleMap[id] = item;
-	}
-	void putFloat3(vint id, vfloat3 item) {
-		float3Map[id] = item;
+	void putDouble(vcstr key, vdouble item) {
+		doubleMap[key] = item;
 	}
 
-	vint getInt(vint id) {
-		return intMap[id];
+	vint getInt(vcstr key) {
+		return intMap[key];
 	}
 
-	vdouble getDouble(vint id) {
-		return doubleMap[id];
+	vdouble getDouble(vcstr key) {
+		return doubleMap[key];
 	}
 
-	vcstr getCstr(vint id) {
-		return cstrMap[id];
-	}
-
-	vfloat3 getFloat3(vint id) {
-		return float3Map[id];
+	vcstr getCstr(vcstr key) {
+		return cstrMap[key];
 	}
 
 	void clear() {
 		intMap.clear();
 		cstrMap.clear();
 		doubleMap.clear();
-		float3Map.clear();
 	}
 
 private:
-	map<vint, vint> intMap;
-	map<vint, vcstr> cstrMap;
-	map<vint, vdouble> doubleMap;
-	map<vint, vfloat3> float3Map;
+	map<vcstr, vint> intMap;
+	map<vcstr, vcstr> cstrMap;
+	map<vcstr, vdouble> doubleMap;
 };
