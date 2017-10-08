@@ -15,6 +15,7 @@ Engine::~Engine()
 {
 }
 
+/*
 Engine& Engine::getSingleton()
 {
 	assert(mSingleton);
@@ -29,6 +30,7 @@ Engine* Engine::getSingletonPtr()
 	}
 	return mSingleton;
 }
+*/
 
 inline void Engine::setHwnd(vhwnd hwnd)
 {
@@ -57,7 +59,7 @@ inline void Engine::setWidth(vint width)
 
 bool Engine::init()
 {
-	auto ret = Engine::getSingletonPtr()->loadModule(TEXT("Log.dll"));
+	auto ret = Engine::getInstance()->loadModule(TEXT("Log.dll"));
 	if (ret == VERR)
 		return false;
 
@@ -71,7 +73,7 @@ bool Engine::init()
 }
 
 bool Engine::start(){
-	auto ret = Engine::getSingletonPtr()->loadModule(TEXT("d3d11Renderer.dll"));
+	auto ret = Engine::getInstance()->loadModule(TEXT("d3d11Renderer.dll"));
 	if (ret == VERR)
 		return false;
 	if (mLogMgr)

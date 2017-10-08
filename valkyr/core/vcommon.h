@@ -24,7 +24,7 @@ public:
 	}
 	*/
 
-	~Singleton(void)
+	virtual ~Singleton(void)
 	{
 		//assert(ms_Singleton);  
 		ms_Singleton.reset();
@@ -43,7 +43,7 @@ public:
 		return (ms_Singleton);
 	}
 
-protected:
+private:
 	static vptr<T> ms_Singleton;
 
 	Singleton(void)

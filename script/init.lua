@@ -1,5 +1,8 @@
+start={}
 apologize = {}
 doNext = {}
 
-local passage = {apologize,doNext}
+middle={}
+
+local passage = {start,apologize,middle,{,doNext}}
 

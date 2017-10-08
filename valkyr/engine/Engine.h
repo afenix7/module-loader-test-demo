@@ -12,12 +12,12 @@ typedef void (CALLBACK* LPFNStopFunc)();
 
 namespace valkyr
 {
-	class VALKYR_API Engine
+	class VALKYR_API Engine : Singleton<Engine>
 	{
 	public:		
 		~Engine();
-		static Engine& getSingleton(void);
-		static Engine* getSingletonPtr(void);
+		//static Engine& getSingleton(void);
+		//static Engine* getSingletonPtr(void);
 		//Engine& getSingleton(void);
 
 		void setHwnd(vhwnd hwnd);
