@@ -10,7 +10,9 @@ namespace valkyr{
 		IFramePlugin(){}
 		virtual ~IFramePlugin(){}
 
-		virtual void update() = 0;
+		virtual void frameUpdate() = 0;
+
+		virtual void fixedUpdate() = 0;
 	};
 
 }

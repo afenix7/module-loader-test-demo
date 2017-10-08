@@ -1,10 +1,13 @@
-start={}
-apologize = {}
-doNext = {}
+start='emmm...., think a lot and decide to write this,maybe it is dramaSprite, for content choose not on holiday hope least bother'
+apologize = {'maybe it is dramaSprite','','','dramaSprite actions at old time'}
+doNext = {GravityFall}
 
-middle={}
+middle={noMoreEmbarrassed,importance,myFeature, yourFeature,houseStuff}
+noEmbarrassed={}
+importance={}
 yourFeature={}
-hourseStuff={}
+myFeature={}
+houseStuff={}
 
-local passage = {start,apologize,middle,{hourseStuff|yourFeature,doNext}}
+local passage = {start,apologize,middle,{houseStuff|yourFeature,doNext}}
 
