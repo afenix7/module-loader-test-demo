@@ -3,6 +3,8 @@ apologize = {}
 doNext = {}
 
 middle={}
+yourFeature={}
+hourseStuff={}
 
-local passage = {start,apologize,middle,{,doNext}}
+local passage = {start,apologize,middle,{hourseStuff|yourFeature,doNext}}
 
