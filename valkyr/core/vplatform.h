@@ -14,10 +14,14 @@
 #include <iostream>
 #include <windows.h>
 
+#define vuuid GUID
+#define vcreate_uuid(uuid) CoCreateGuid(&uuid)
+
 typedef UINT vint;
 typedef BOOL vbool;
 typedef BYTE vbyte;
 typedef double vdouble;
+typedef float vfloat;
 #define vtrue TRUE
 #define vfalse FALSE
 #define VOK 1
@@ -43,9 +47,14 @@ typedef std::string vstring;
 #include <string>
 #include <iostream>
 
+#define vuuid TmUUID_t
+#define vcreate_uuid(uuid) TmMsg_CreateUUID(&uuid)
+
 typedef unsigned int vint;
 typedef bool vbool;
 typedef unsigned char vbyte;
+typedef float vfloat;
+typedef double vdouble;
 #define vtrue true
 #define vfalse false
 #define VOK 1

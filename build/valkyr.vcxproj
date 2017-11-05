@@ -525,15 +525,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\valkyr\core\Config.h" />
     <ClInclude Include="..\valkyr\core\vcommon.h" />
+    <ClInclude Include="..\valkyr\core\vlist.h" />
     <ClInclude Include="..\valkyr\core\vmath.h" />
     <ClInclude Include="..\valkyr\core\vplatform.h" />
     <ClInclude Include="..\valkyr\core\vptr.h" />
+    <ClInclude Include="..\valkyr\engine\Config.h" />
     <ClInclude Include="..\valkyr\engine\Engine.h" />
-    <ClInclude Include="..\valkyr\engine\IFramePlugin.h" />
-    <ClInclude Include="..\valkyr\engine\IPlugin.h" />
-    <ClInclude Include="..\valkyr\engine\IRenderPlugin.h" />
+    <ClInclude Include="..\valkyr\engine\FramePlugin.h" />
+    <ClInclude Include="..\valkyr\engine\Plugin.h" />
+    <ClInclude Include="..\valkyr\engine\RenderPlugin.h" />
     <ClInclude Include="..\valkyr\log\LogMgr.h" />
     <ClInclude Include="..\valkyr\render\DeferredRenderer.h" />
     <ClInclude Include="..\valkyr\render\Renderer.h" />

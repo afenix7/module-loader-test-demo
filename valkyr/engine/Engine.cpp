@@ -3,12 +3,15 @@
 
 using namespace valkyr;
 
-Engine* Engine::mSingleton=0;
+vptr<Engine> Engine::mSingleton=0;
 
-Engine::Engine() :mLogMgr(0),mRenderer(0) //,mConfig(new Config())
+/*
+Engine::Engine() //,mConfig(new Config())
 {
+	vnew_ptr<LogMgr>(mLogMgr);
 	vnew_ptr<Config>(mConfig);
 }
+*/
 
 
 Engine::~Engine()
@@ -72,6 +75,10 @@ bool Engine::init()
 	//mHeight = 768;
 }
 
+bool Engine::init() {
+
+}
+
 bool Engine::start(){
 	auto ret = Engine::getInstance()->loadModule(TEXT("d3d11Renderer.dll"));
 	if (ret == VERR)
@@ -90,9 +97,9 @@ bool Engine::stop(){
 	if (this->unloadModules() == VOK)
 	{
 		
-		mRenderer = NULL;
-		mLogMgr = NULL;	
-		mConfig = nullptr;
+		mRenderer.reset();
+		mLogMgr.reset();	
+		mConfig.reset();
 		
 		/*
 		mRenderer.reset();
@@ -173,12 +180,12 @@ vint Engine::unloadModules()
 	return VOK;
 }
 
-LogMgr* Engine::getLogMgr()
+vptr<LogMgr> Engine::getLogMgr()
 {
 	return mLogMgr;
 }
 
-int Engine::setLogMgr(LogMgr* logMgr)
+int Engine::setLogMgr(vptr<LogMgr> logMgr)
 {
 	mLogMgr = logMgr;
 	if (mLogMgr == NULL)
@@ -187,12 +194,12 @@ int Engine::setLogMgr(LogMgr* logMgr)
 		return VOK;
 }
 
-Renderer* Engine::getRenderer()
+vptr<Renderer> Engine::getRenderer()
 {
 	return mRenderer;
 }
 
-int Engine::setRenderer(Renderer* renderer)
+int Engine::setRenderer(vptr<Renderer> renderer)
 {
 	mRenderer = renderer;
 	if (mRenderer == NULL)

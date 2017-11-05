@@ -1,10 +1,11 @@
 #pragma once
 
-#include <vector>
+//#include <vector>
 #include "../core/vcommon.h"
-#include "../core/Config.h"
+#include "../core/vlist.h"
+#include "../engine/Config.h"
 #include "../log/LogMgr.h"
-#include "../engine/IFramePlugin.h"
+#include "../engine/FramePlugin.h"
 #include "../render/Renderer.h"
 
 typedef void (CALLBACK* LPFNStartFunc)();
@@ -29,6 +30,7 @@ namespace valkyr
 		//bool loadConfig();
 		//void createWindow(vhwnd hwnd,vint width,vint height);
 		bool init();
+		vbool init(Config config);
 		bool start();
 		void update();
 		void render();
@@ -38,22 +40,23 @@ namespace valkyr
 		//template <IFramePlugin> vint installPlugin()
 		//int unloadPlugin(vcstr name);
 		vint unloadModules();
-		LogMgr* getLogMgr();
-		int setLogMgr(LogMgr* logMgr);
-		Renderer* getRenderer();
-		int setRenderer(Renderer* renderer);
+		vptr<LogMgr> getLogMgr();
+		int setLogMgr(vptr<LogMgr> logMgr);
+		vptr<Renderer> getRenderer();
+		int setRenderer(vptr<Renderer> renderer);
 		vptr<Config> getConfig();
 
 	private:
 		Engine();
 
-		static Engine* mSingleton;
+		static vptr<Engine> mSingleton;
 		vhwnd mHwnd;
 		vint mWidth, mHeight;
-		LogMgr* mLogMgr;
-		Renderer* mRenderer;
+		vptr<LogMgr> mLogMgr;
+		vptr<Renderer> mRenderer;
 		//std::map<vcstr,vhdll> mPluginMap;
-		std::vector<vhdll> mModuleList;
+		//vlist<vhdll> mModuleList;
+		vlist<Plugin> mPluginList;
 		vptr<Config> mConfig;
 	};
 
