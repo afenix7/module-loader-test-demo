@@ -3,3 +3,6 @@
 *.filters
 *.user
 /d3d11Renderer/ReadMe.txt
+/obj
+/bin
+/build
