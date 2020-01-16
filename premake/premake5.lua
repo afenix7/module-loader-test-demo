@@ -1,13 +1,14 @@
 -- premake5.lua
 workspace "walkyrie"
-	startproject "vwin"
+	startproject "vapp"
 	configurations { "Debug", "Release", "DebugDLL", "ReleaseDLL","DebugLib","ReleaseLib"}
 	platforms { "Win32", "Win64"}
 	location "../build"
 	
 	filter "configurations:Debug*"
 		defines { "DEBUG" }
-		flags { "Symbols","Unicode","MultiProcessorCompile" }
+		flags { "MultiProcessorCompile" }
+		symbols "On"
 		warnings "Extra"
 		libdirs {"../lib/%{cfg.platform}_%{cfg.buildcfg}","../bin/%{cfg.platform}_%{cfg.buildcfg}"}
 		targetdir "../bin/%{cfg.platform}_%{cfg.buildcfg}"
@@ -15,7 +16,8 @@ workspace "walkyrie"
 
 	filter "configurations:Release*"
 		defines { "NDEBUG" }
-		flags { "Unicode","MultiProcessorCompile" }
+		flags { "MultiProcessorCompile" }
+		symbols "Off"
 		optimize "On"
 		libdirs {"../lib/%{cfg.platform}_%{cfg.buildcfg}","../bin/%{cfg.platform}_%{cfg.buildcfg}"}
 		targetdir "../bin/%{cfg.platform}_%{cfg.buildcfg}"
