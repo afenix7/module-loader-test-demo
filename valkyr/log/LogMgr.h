@@ -1,11 +1,12 @@
 #pragma once
 
 #include "../core/vcommon.h"
+#include "../core/vstring.h"
 
 namespace valkyr
 {
 
-	enum LogLevel
+	enum class LogLevel
 	{
 		standard,
 		warn,
@@ -17,7 +18,7 @@ namespace valkyr
 	public:
 		LogMgr(){};
 		virtual ~LogMgr() {};
-		virtual void log(vstr content, vstr title, LogLevel level)=0;
+		virtual void log(vstring title, vstring content, LogLevel level)=0;
 	};
 
 }

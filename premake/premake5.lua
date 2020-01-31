@@ -75,3 +75,11 @@ project "vapp"
 	location "../build"
 	language "C++"
 	files {"../vapp/*.h","../vapp/*.cpp","../vapp/*.rc","../vapp/*.ico"}
+
+project "vtest"
+	kind "ConsoleApp"
+	configurations {"Debug","Release"}
+	location "../build"
+	language "C++"
+	files {"../vtest/*.h","../vtest/*.cpp"}
+

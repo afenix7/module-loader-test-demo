@@ -1,6 +1,8 @@
 #pragma once
 
 #include "../valkyr/core/vcommon.h"
+#include "../valkyr/core/vplatform.h"
+#include "../valkyr/core/vptr.h"
 #include "../valkyr/render/Renderer.h"
 #include <dxgi.h>
 #include <d3d11.h>
@@ -27,18 +29,18 @@ public:
 	D3d11Renderer();
 	virtual ~D3d11Renderer();
 
-	virtual vint initGraphics(Config* pConfig,vhwnd hwnd);
+	virtual vint initGraphics(vptr<Config> pConfig,vhwnd hwnd) override;
 	//virtual vint loadRes();
 	//virtual void start();
 	//virtual void stop();
-	virtual void preRender();
-	virtual void render();
+	void preRender() override;
+	void render() override;
 	//virtual void generateRenderList();
 	//virtual void drawScenePass();
 	//virtual void drawLightPass();
 	//virtual void drawCompositionPass();
 	//virtual void drawPostFX();
-	virtual void destroy();
+	void destroy() override;
 	//virtual void createWindow();
 
 private:

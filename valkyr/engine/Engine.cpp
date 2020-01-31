@@ -1,11 +1,13 @@
 //#include "stdafx.h"
 #include "./Engine.h"
+#include "assert.h"
 
 using namespace valkyr;
 
-Engine* Engine::mSingleton=0;
+Engine* Engine::mSingleton=nullptr;
 
-Engine::Engine() :mLogMgr(0),mRenderer(0),mConfig(new Config())
+Engine::Engine() :mLogMgr(nullptr),mRenderer(nullptr),mConfig(new Config())
+	,mWidth(800),mHeight(600),mHwnd(HWND())
 {
 }
 
@@ -24,7 +26,6 @@ Engine* Engine::getSingletonPtr()
 {
 	if (!mSingleton){
 		mSingleton = new Engine();
-		//mSingleton = vnew_ptr<Engine>();
 	}
 	return mSingleton;
 }
@@ -62,7 +63,7 @@ bool Engine::init()
 
 	if (mLogMgr)
 	{
-		mLogMgr->log(TEXT("Engine launch"), TEXT("Engine init successful"), LogLevel::standard);
+		mLogMgr->log("Engine launch", "Engine init successful", LogLevel::standard);
 	}
 	return true;
 	//mWidth = 1024;
@@ -75,8 +76,8 @@ bool Engine::start(){
 		return false;
 	if (mLogMgr)
 	{
-		if (mRenderer) mLogMgr->log(TEXT("Engine launch"), TEXT("Engine start successful"), LogLevel::standard);
-		else mLogMgr->log(TEXT("Engine launch error"), TEXT("Engine start error"), LogLevel::error);
+		if (mRenderer) mLogMgr->log("Engine launch", "Engine start successful", LogLevel::standard);
+		else mLogMgr->log("Engine launch error", "Engine start error", LogLevel::error);
 	}
 	
 	return true;
@@ -86,20 +87,10 @@ bool Engine::stop(){
 	//if (this->unloadPlugin(TEXT("Log.dll")) == VOK)
 	if (this->unloadModules() == VOK)
 	{
-		
-		mRenderer = NULL;
-		mLogMgr = NULL;	
-		mConfig = nullptr;
-		
-		/*
-		mRenderer.reset();
-		mLogMgr.reset();
-		mConfig.reset();
-		*/
+		return true;
 	}
 	else
 		return false;
-	return true;
 }
 
 void Engine::update(){
@@ -169,35 +160,35 @@ vint Engine::unloadModules()
 	return VOK;
 }
 
-LogMgr* Engine::getLogMgr()
+vptr<LogMgr> Engine::getLogMgr()
 {
 	return mLogMgr;
 }
 
-int Engine::setLogMgr(LogMgr* logMgr)
+int Engine::setLogMgr(vptr<LogMgr> logMgr)
 {
 	mLogMgr = logMgr;
-	if (mLogMgr == NULL)
+	if (!mLogMgr)
 		return VERR;
 	else
 		return VOK;
 }
 
-Renderer* Engine::getRenderer()
+vptr<Renderer> Engine::getRenderer()
 {
 	return mRenderer;
 }
 
-int Engine::setRenderer(Renderer* renderer)
+int Engine::setRenderer(vptr<Renderer> renderer)
 {
 	mRenderer = renderer;
-	if (mRenderer == NULL)
+	if (!mRenderer)
 		return VERR;
 	else
 		return VOK;
 }
 
-Config* valkyr::Engine::getConfig()
+vptr<Config> valkyr::Engine::getConfig()
 {
 	return mConfig;
 }

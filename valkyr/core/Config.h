@@ -1,5 +1,6 @@
 #pragma once
 #include "vcommon.h"
+#include "vmath.h"
 #include <map>
 
 using namespace std;

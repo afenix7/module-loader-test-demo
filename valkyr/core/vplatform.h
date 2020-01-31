@@ -8,12 +8,12 @@
 //#include "../targetver.h"
 #define WIN32_LEAN_AND_MEAN 
 //#include <afx.h>
-//should work for all windows config, so afx will be discarded
-#include <string>
-#include <assert.h>
-#include <iostream>
+//need work for all windows configs, so afx will be discarded
+//#include <assert.h>
+//#include <iostream>
 #include <windows.h>
 
+typedef unsigned int vsize;
 typedef UINT vint;
 typedef BOOL vbool;
 typedef BYTE vbyte;
@@ -23,11 +23,10 @@ typedef double vdouble;
 #define VOK 1
 #define VERR 0
 
-typedef std::string vstring;
 #define vstr LPTSTR
 #define vcstr LPCTSTR
 //ANSI constant string
-#define vcastr LPCSTR 
+#define vconst_ansi_str LPCSTR 
 
 #define vhwnd HWND
 #define vhdll HINSTANCE
@@ -43,6 +42,7 @@ typedef std::string vstring;
 #include <string>
 #include <iostream>
 
+#define CALLBACK _stdcall
 typedef unsigned int vint;
 typedef bool vbool;
 typedef unsigned char vbyte;

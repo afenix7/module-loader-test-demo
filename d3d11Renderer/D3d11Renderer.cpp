@@ -13,7 +13,7 @@ D3d11Renderer::~D3d11Renderer()
 }
 
 
-vint D3d11Renderer::initGraphics(Config* config,vhwnd hwnd)
+vint D3d11Renderer::initGraphics(vptr<Config> config,vhwnd hwnd)
 {
 	HRESULT hr = S_OK;
 	UINT createDeviceFlags = 0;

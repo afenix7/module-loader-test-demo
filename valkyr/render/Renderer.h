@@ -30,9 +30,10 @@ namespace valkyr
 	public:
 		Renderer(){}
 		virtual ~Renderer() {}
-		virtual vint initGraphics(Config* pConfig,vhwnd hwnd) = 0;
+		virtual vint initGraphics(vptr<Config> pConfig,vhwnd hwnd) = 0;
 		//virtual vint loadRes() = 0;
 		//virtual void generateRenderList() = 0;
+		virtual void preRender() = 0;
 		virtual void render() = 0;
 		//virtual void drawScenePass() = 0;
 		//virtual void drawLightPass() = 0;

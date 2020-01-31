@@ -1,7 +1,10 @@
 #pragma once
 
 #include <vector>
+#include <iostream>
 #include "../core/vcommon.h"
+#include "../core/vplatform.h"
+#include "../core/vptr.h"
 #include "../core/Config.h"
 #include "../log/LogMgr.h"
 #include "../engine/IFramePlugin.h"
@@ -38,23 +41,25 @@ namespace valkyr
 		//template <IFramePlugin> vint installPlugin()
 		//int unloadPlugin(vcstr name);
 		vint unloadModules();
-		LogMgr* getLogMgr();
-		int setLogMgr(LogMgr* logMgr);
-		Renderer* getRenderer();
-		int setRenderer(Renderer* renderer);
-		Config* getConfig();
+		vptr<LogMgr> getLogMgr();
+		int setLogMgr(vptr<LogMgr> logMgr);
+		vptr<Renderer> getRenderer();
+		int setRenderer(vptr<Renderer> renderer);
+		vptr<Config> getConfig();
 
 	private:
 		Engine();
 
+		//vuni_ptr not suitable for singleton
+		//not need use shared_ptr, or will face "can not visit private member"
 		static Engine* mSingleton;
 		vhwnd mHwnd;
 		vint mWidth, mHeight;
-		LogMgr* mLogMgr;
-		Renderer* mRenderer;
+		vptr<LogMgr> mLogMgr;
+		vptr<Renderer> mRenderer;
 		//std::map<vcstr,vhdll> mPluginMap;
 		std::vector<vhdll> mModuleList;
-		Config* mConfig;
+		vptr<Config> mConfig;
 	};
 
 }

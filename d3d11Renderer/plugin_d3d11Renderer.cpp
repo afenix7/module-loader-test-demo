@@ -9,11 +9,11 @@
 
 using namespace valkyr;
 
-static D3d11Renderer* g_renderer;
+static vptr<D3d11Renderer> g_renderer;
 
 extern"C" __declspec(dllexport) void dllStartPlugin(){
-	g_renderer = new D3d11Renderer();
-	//g_renderer = vnew_ptr<D3d11Renderer>();
+	g_renderer = vmake_ptr<D3d11Renderer>();
+	//g_renderer = vmake_ptr<D3d11Renderer>();
 	/*
 	GraphicsConfig config;
 	config.width = Engine::getSingletonPtr()->getWidth();
@@ -24,7 +24,7 @@ extern"C" __declspec(dllexport) void dllStartPlugin(){
 	config.windowed = true;
 	config.hWnd = Engine::getSingletonPtr()->getHwnd();
 	*/
-	Config* config = new Config();
+	vptr<Config> config = vmake_ptr<Config>();
 	config->putInt(CONFIG_WIDTH, Engine::getSingletonPtr()->getWidth());
 	config->putInt(CONFIG_HEIGHT, Engine::getSingletonPtr()->getHeight());
 	config->putInt(CONFIG_REFRESH_RATE,60);
@@ -35,19 +35,19 @@ extern"C" __declspec(dllexport) void dllStartPlugin(){
 	//g_renderer->loadRes();
 	if (Engine::getSingletonPtr()->setRenderer(g_renderer) == VOK){
 	//if (Engine::getSingletonPtr()->installPlugin<D3d11Renderer>(g_renderer) == VOK){
-		Engine::getSingletonPtr()->getLogMgr()->log(L"Render plugin start successful",L"Render",LogLevel::standard);
+		Engine::getSingletonPtr()->getLogMgr()->log("Render","Render plugin start successful",LogLevel::standard);
 		std::cout << "render plugin start" << std::endl;
 	}
 	else
 	{
-		Engine::getSingletonPtr()->getLogMgr()->log(L"render plugin start error", L"Error", LogLevel::error);
+		Engine::getSingletonPtr()->getLogMgr()->log("Error", "render plugin start error",  LogLevel::error);
 	}
 }
 
 extern"C" __declspec(dllexport) void dllStopPlugin(){
 	g_renderer->destroy();
 	//g_renderer.reset();
-	delete g_renderer;
+	//delete g_renderer;
 }
 
 

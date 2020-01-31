@@ -5,7 +5,7 @@
 
 FileLog::FileLog()
 {
-	
+	//std::locale::global(std::locale(""));
 }
 
 
@@ -25,32 +25,37 @@ FileLog* FileLog::getSingletonPtr()
 }
 */
 
-void FileLog::setFilePath(vstr filePath)
+void FileLog::setFilePath(vstring filePath)
 {
 	mFilePath = filePath;
 }
 
-void FileLog::log(vstr content, vstr title, LogLevel level)
+void FileLog::log(vstring title, vstring content, LogLevel level)
 {
-	vstr lvlstr;
+	vstring lvlstr;
 	switch (level)
 	{
 	case standard:
-		lvlstr = TEXT("Standard");
+		lvlstr = "Standard";
 	case warn:
-		lvlstr = TEXT("Warning");
+		lvlstr = "Warning";
 	case error:
-		lvlstr = TEXT("Error");
+		lvlstr = "Error";
 	default:
-		lvlstr = TEXT("Standard");
+		lvlstr = "Standard";
 	}
-	SYSTEMTIME sys;
-	GetLocalTime(&sys);
+	//SYSTEMTIME sysTimeStr;
+	//GetLocalTime(&sysTimeStr);
+	time_t now;
+	time(&now);
+	char sysTimeStr[36];
+	strftime(sysTimeStr, sizeof(sysTimeStr), "%Y-%m-%d %H:%M", localtime(&now));
 	
 	std::ofstream fs;
-	fs.open(mFilePath,std::ios::out);
+	fs.open(mFilePath,std::ios::out|std::ios::app);
 	if (fs){
-		fs << title <<"(" <<lvlstr <<")" << sys.wYear<<"-"<<sys.wMonth<<"-"<<sys.wDay<<" " <<sys.wHour<<":"<<sys.wMinute<<" "<< std::endl;
+		//fs << title <<"(" <<lvlstr <<")" << sysTimeStr.wYear<<"-"<< sysTimeStr.wMonth<<"-"<< sysTimeStr.wDay<<" " << sysTimeStr.wHour<<":"<< sysTimeStr.wMinute<<" "<< std::endl;
+		fs << title <<" (" <<lvlstr <<") " << sysTimeStr <<" "<< std::endl;
 		fs << content << std::endl;
 		fs.close();
 	}

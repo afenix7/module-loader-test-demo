@@ -15,10 +15,10 @@ public:
 	//static FileLog& getSingleton(void);
 	//static FileLog* getSingletonPtr(void);
 	virtual ~FileLog(); 
-	void setFilePath(vstr filePath);
-	virtual void log(vstr content, vstr title, LogLevel level);
+	void setFilePath(vstring filePath);
+	virtual void log(vstring title, vstring content, LogLevel level);
 
 private:
-	vstr mFilePath;
+	vstring mFilePath;
 };
 

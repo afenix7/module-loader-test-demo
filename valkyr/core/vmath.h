@@ -1,8 +1,5 @@
 #pragma once
 
-#include "./vplatform.h"
-#include "vptr.h"
-
 #ifdef _WINDOWS
 
 #ifdef _WIN10
