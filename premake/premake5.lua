@@ -49,7 +49,10 @@ project "valkyr"
 	--DirectXMath seems not need config anything here
 	language "C++"
 	--maybe ../valkyr/**.h can work
-	files {"../valkyr/*.h","../valkyr/*.cpp","../valkyr/core/*.h","../valkyr/log/*.h","../valkyr/net/*.h","../valkyr/physics/*.h","../valkyr/script/*.h","../valkyr/render/*.h","../valkyr/engine/*.h","../valkyr/engine/*.cpp"}
+	files {
+		"../valkyr/*.h","../valkyr/*.cpp","../valkyr/core/*.h","../valkyr/log/*.h","../valkyr/net/*.h","../valkyr/physics/*.h","../valkyr/script/*.h","../valkyr/render/*.h","../valkyr/engine/*.h","../valkyr/engine/*.cpp",
+		"../valkyr/ecs/*.h","../valkyr/ecs/*.cpp"
+	}
 
 project "Log"
     --should change AFX to std::string
@@ -66,6 +69,14 @@ project "d3d11Renderer"
 	location "../build"
 	language "C++"
 	files {"../d3d11Renderer/*.h","../d3d11Renderer/*.cpp"}
+	links { "valkyr","d3d11","dxgi","d3dcompiler"}
+
+project "d3d12Renderer"
+	configurations {"DebugDLL","ReleaseDLL"}
+	kind "SharedLib"
+	location "../build"
+	language "C++"
+	files {"../d3d12Renderer/*.h","../d3d12Renderer/*.cpp"}
 	links { "valkyr","d3d11","dxgi","d3dcompiler"}
 
 -- should remove mainCRTxxxx as entry point of the generated project, or will face entry error
