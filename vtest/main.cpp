@@ -49,10 +49,7 @@ void testContainers() {
     aList.push_back(new A(2));
     std::cout << "aList[0]->x=" << aList[0]->x << std::endl;
     int x = 1;
-    std::multimap<int, int> m;
-    m.insert(1, 222);
-    m.insert(1, 33);
-    auto p = m.equal_range(1);
+    
     
 }
 

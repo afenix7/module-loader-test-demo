@@ -35,11 +35,11 @@ void FileLog::log(vstring title, vstring content, LogLevel level)
 	vstring lvlstr;
 	switch (level)
 	{
-	case standard:
+	case valkyr::LogLevel::standard:
 		lvlstr = "Standard";
-	case warn:
+	case valkyr::LogLevel::warn:
 		lvlstr = "Warning";
-	case error:
+	case valkyr::LogLevel::error:
 		lvlstr = "Error";
 	default:
 		lvlstr = "Standard";
