@@ -4,9 +4,13 @@
 #define _WIN10
 //#define LINUX
 
+using vint16 = std::int16_t;
+using vint32 = std::int32_t;
+using vint64 = std::int64_t;
+
 #if defined _WINDOWS
 //#include "../targetver.h"
-#define WIN32_LEAN_AND_MEAN 
+#define WIN32_LEAN_AND_MEAN
 //#include <afx.h>
 //need work for all windows configs, so afx will be discarded
 //#include <assert.h>
@@ -26,16 +30,16 @@ typedef double vdouble;
 #define vstr LPTSTR
 #define vcstr LPCTSTR
 //ANSI constant string
-#define vconst_ansi_str LPCSTR 
+#define vconst_ansi_str LPCSTR
 
 #define vhwnd HWND
 #define vhdll HINSTANCE
 #define vhandle HINSTANCE
 
 //#define vwindow(hinstance,classname,title,w,h) CreateWindow(classname,title,WS_OVERLAPPEDWINDOW,CW_USEDEFAULT, CW_USEDEFAULT,w,h,NULL,NULL,hinstance,NULL);
-#define vloadlib( filename ) LoadLibraryEx( filename, NULL, LOAD_WITH_ALTERED_SEARCH_PATH )
-#define vgetsym( hdll, funcname ) GetProcAddress( hdll, funcname )
-#define vfreelib( hdll ) FreeLibrary( hdll )
+#define vloadlib(filename) LoadLibraryEx(filename, NULL, LOAD_WITH_ALTERED_SEARCH_PATH)
+#define vgetsym(hdll, funcname) GetProcAddress(hdll, funcname)
+#define vfreelib(hdll) FreeLibrary(hdll)
 
 #elif defined _LINUX
 #include <dlfcn.h>
@@ -52,19 +56,17 @@ typedef unsigned char vbyte;
 #define VERR 0
 
 typedef std::string vstring;
-#define vstr char*
-#define vcstr const char*
+#define vstr char *
+#define vcstr const char *
 //ANSI constant string
-#define vcastr const char*
+#define vcastr const char *
 
-#define vhwnd void*
-#define vhdll void*
+#define vhwnd void *
+#define vhdll void *
 #define vhandle int
 
-#define vloadlib( filename ) dlopen(filename,RTLD_LAZY)
-#define vgetsym (hdll,funcname) dlsym(hdll,funcname)
+#define vloadlib(filename) dlopen(filename, RTLD_LAZY)
+#define vgetsym (hdll, funcname) dlsym(hdll, funcname)
 #define vfreelib(hdll) dlclose(hdll)
 
-
 #endif
-

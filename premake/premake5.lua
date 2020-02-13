@@ -46,9 +46,7 @@ project "valkyr"
 	kind "SharedLib"
 	location "../build"
 	--defines {"_WINDLL"}
-	--DirectXMath seems not need config anything here
 	language "C++"
-	--maybe ../valkyr/**.h can work
 	files {
 		"../valkyr/*.h","../valkyr/*.cpp","../valkyr/core/*.h","../valkyr/log/*.h","../valkyr/net/*.h","../valkyr/physics/*.h","../valkyr/script/*.h","../valkyr/render/*.h","../valkyr/engine/*.h","../valkyr/engine/*.cpp",
 		"../valkyr/ecs/*.h","../valkyr/ecs/*.cpp"
@@ -93,4 +91,11 @@ project "vtest"
 	location "../build"
 	language "C++"
 	files {"../vtest/*.h","../vtest/*.cpp"}
+
+project "lua53"
+	kind "StaticLib"
+	configurations {"DebugLib","ReleaseLib"}
+	location "../build"
+	language "C"
+	files {"../extern/lua/*.h","../extern/lua/*.cpp"}
 

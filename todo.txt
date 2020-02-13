@@ -2,8 +2,6 @@
 
 - 基于stl map的config类，以及引擎全局config的读写函数
 
-- log的完善，确保可以成功记录log，不然调试怎么办
-
 - 图形接口：单独的vertexdef.h, Mesh，Texture, Material(含shader和其用到的纹理、参数)，渲染器内的全局常量缓存（与material共同组成shader必需参数），
 - mesh等的读写可使用ASIMP，因此需要资源类ResLoader<T>，内存里的全局资源也塞进ResLib<T>, Engine得维护一个ResLib列表
 
@@ -14,3 +12,7 @@
 - 物理接口：先只含基本碰撞，使用PhysX或自己写简单的碰撞，需要fixedUpdate
 
 - 插件系统：插件可响应init, update, render, resload, sceneload等事件
+
+- lua based script system
+
+- lib or mobile gen sys, based on lua

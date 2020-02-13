@@ -44,6 +44,10 @@ void testPlacement() {
     std::cout << "after delete all buff, d.x=" << d->x << std::endl;
 }
 
+void testLua() {
+
+}
+
 void testContainers() {
     std::vector<A*> aList;
     aList.push_back(new A(2));
@@ -54,6 +58,7 @@ void testContainers() {
 }
 
 int main(){
-    testContainers();
+    testLua();
+    //testContainers();
     return 0;
 }
