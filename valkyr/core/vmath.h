@@ -1,5 +1,8 @@
 #pragma once
 
+#include "../../extern/hlslpp/hlsl++.h"
+
+/*
 #ifdef _WINDOWS
 
 #ifdef _WIN10
@@ -37,3 +40,4 @@ struct Vector2 : public XMFLOAT2 {
 };
 
 #endif
+*/
