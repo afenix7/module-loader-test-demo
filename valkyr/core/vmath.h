@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../../extern/hlslpp/hlsl++.h"
+#include "../../extern/hlslpp/include/hlsl++.h"
 
 /*
 #ifdef _WINDOWS

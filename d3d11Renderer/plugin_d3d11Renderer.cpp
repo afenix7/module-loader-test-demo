@@ -24,7 +24,7 @@ extern"C" __declspec(dllexport) void dllStartPlugin(){
 	config.windowed = true;
 	config.hWnd = Engine::getSingletonPtr()->getHwnd();
 	*/
-	vptr<Config> config = vmake_ptr<Config>();
+	vptr<Bundle> config = vmake_ptr<Bundle>();
 	config->putInt(CONFIG_WIDTH, Engine::getSingletonPtr()->getWidth());
 	config->putInt(CONFIG_HEIGHT, Engine::getSingletonPtr()->getHeight());
 	config->putInt(CONFIG_REFRESH_RATE,60);

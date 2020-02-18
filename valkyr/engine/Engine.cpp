@@ -4,27 +4,28 @@
 
 using namespace valkyr;
 
-Engine* Engine::mSingleton=nullptr;
+Engine *Engine::mSingleton = nullptr;
 
-Engine::Engine() :mLogMgr(nullptr),mRenderer(nullptr),mConfig(new Config())
-	,mWidth(800),mHeight(600),mHwnd(HWND())
+Engine::Engine() : mLogMgr(nullptr), mRenderer(nullptr), mConfig(new Bundle()), mWidth(800), mHeight(600), mHwnd(HWND())
 {
+	L = luaL_newstate();
+	luaL_openlibs(L);
 }
-
 
 Engine::~Engine()
 {
 }
 
-Engine& Engine::getSingleton()
+Engine &Engine::getSingleton()
 {
 	assert(mSingleton);
 	return (*mSingleton);
 }
 
-Engine* Engine::getSingletonPtr()
+Engine *Engine::getSingletonPtr()
 {
-	if (!mSingleton){
+	if (!mSingleton)
+	{
 		mSingleton = new Engine();
 	}
 	return mSingleton;
@@ -41,14 +42,14 @@ inline vhwnd Engine::getHwnd()
 }
 
 //todo: store in a Config class
-inline vint Engine::getHeight(){ return mHeight; }
+inline vint Engine::getHeight() { return mHeight; }
 
 inline void Engine::setHeight(vint height)
 {
 	mHeight = height;
 }
 
-inline vint Engine::getWidth(){ return mWidth; }
+inline vint Engine::getWidth() { return mWidth; }
 
 inline void Engine::setWidth(vint width)
 {
@@ -70,20 +71,24 @@ bool Engine::init()
 	//mHeight = 768;
 }
 
-bool Engine::start(){
+bool Engine::start()
+{
 	auto ret = Engine::getSingletonPtr()->loadModule(TEXT("d3d11Renderer.dll"));
 	if (ret == VERR)
 		return false;
 	if (mLogMgr)
 	{
-		if (mRenderer) mLogMgr->log("Engine launch", "Engine start successful", LogLevel::standard);
-		else mLogMgr->log("Engine launch error", "Engine start error", LogLevel::error);
+		if (mRenderer)
+			mLogMgr->log("Engine launch", "Engine start successful", LogLevel::standard);
+		else
+			mLogMgr->log("Engine launch error", "Engine start error", LogLevel::error);
 	}
-	
+
 	return true;
 }
 
-bool Engine::stop(){
+bool Engine::stop()
+{
 	//if (this->unloadPlugin(TEXT("Log.dll")) == VOK)
 	if (this->unloadModules() == VOK)
 	{
@@ -93,27 +98,34 @@ bool Engine::stop(){
 		return false;
 }
 
-void Engine::update(){
-	std::cout << "engine update" <<std::endl;
+void Engine::update()
+{
+	std::cout << "engine update" << std::endl;
 }
 
-void Engine::render(){
+void Engine::render()
+{
 	if (mRenderer)
 	{
 		mRenderer->render();
 		//std::cout << "engine render" << std::endl;
 	}
-	
 }
 
-vint Engine::loadModule(vcstr name)
+vint Engine::loadModules()
+{
+}
+
+vint Engine::loadModule(vlcstr name)
 {
 	vhdll hdll = vloadlib(name);
-	if (hdll == NULL){
+	if (hdll == NULL)
+	{
 		return VERR;
 	}
 	LPFNStartFunc lpstartfunc = (LPFNStartFunc)GetProcAddress(hdll, "dllStartPlugin");
-	if (lpstartfunc==NULL){
+	if (lpstartfunc == NULL)
+	{
 		vfreelib(hdll);
 		return VERR;
 	}
@@ -125,7 +137,7 @@ vint Engine::loadModule(vcstr name)
 }
 
 /*
-int Engine::unloadPlugin(vcstr name)
+int Engine::unloadPlugin(vlcstr name)
 {
 	vhdll hdll = mPluginMap[name];
 	if (hdll == NULL){
@@ -149,7 +161,8 @@ vint Engine::unloadModules()
 	for (auto hdll : mModuleList)
 	{
 		LPFNStopFunc lpstopfunc = (LPFNStopFunc)GetProcAddress(hdll, "dllStopPlugin");
-		if (lpstopfunc){
+		if (lpstopfunc)
+		{
 			lpstopfunc();
 			vfreelib(hdll);
 		}

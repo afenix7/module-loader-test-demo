@@ -13,7 +13,7 @@ D3d12Renderer::~D3d12Renderer()
 }
 
 
-vint D3d12Renderer::initGraphics(vptr<Config> config,vhwnd hwnd)
+vint D3d12Renderer::initGraphics(vptr<Bundle> config,vhwnd hwnd)
 {
 	HRESULT hr = S_OK;
 	UINT createDeviceFlags = 0;

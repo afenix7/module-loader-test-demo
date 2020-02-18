@@ -1,4 +1,5 @@
-#include "vplatform.h"
+#pragma once
+
 #include <memory>
 
 #define vshared_ptr std::shared_ptr

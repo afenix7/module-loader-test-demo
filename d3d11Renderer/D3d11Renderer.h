@@ -29,7 +29,7 @@ public:
 	D3d11Renderer();
 	virtual ~D3d11Renderer();
 
-	virtual vint initGraphics(vptr<Config> pConfig,vhwnd hwnd) override;
+	virtual vint initGraphics(vptr<Bundle> pConfig,vhwnd hwnd) override;
 	//virtual vint loadRes();
 	//virtual void start();
 	//virtual void stop();
