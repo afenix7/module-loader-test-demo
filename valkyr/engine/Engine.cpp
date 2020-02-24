@@ -8,52 +8,20 @@ Engine *Engine::mSingleton = nullptr;
 
 Engine::Engine() : mLogMgr(nullptr), mRenderer(nullptr), mConfig(new Bundle()), mWidth(800), mHeight(600), mHwnd(HWND())
 {
-	L = luaL_newstate();
-	luaL_openlibs(L);
 }
 
 Engine::~Engine()
 {
 }
 
-Engine &Engine::getSingleton()
+void Engine::initConfig()
 {
-	assert(mSingleton);
-	return (*mSingleton);
-}
-
-Engine *Engine::getSingletonPtr()
-{
-	if (!mSingleton)
-	{
-		mSingleton = new Engine();
-	}
-	return mSingleton;
-}
-
-inline void Engine::setHwnd(vhwnd hwnd)
-{
-	mHwnd = hwnd;
-}
-
-inline vhwnd Engine::getHwnd()
-{
-	return mHwnd;
-}
-
-//todo: store in a Config class
-inline vint Engine::getHeight() { return mHeight; }
-
-inline void Engine::setHeight(vint height)
-{
-	mHeight = height;
-}
-
-inline vint Engine::getWidth() { return mWidth; }
-
-inline void Engine::setWidth(vint width)
-{
-	mWidth = width;
+	lua.open_libraries(sol::lib::base);
+	lua.script_file("valkyr.lua");
+	mConfig = lua["config"];
+	mWidth = mConfig["width"].get_or(0);
+	mHeight = mConfig["height"].get_or(0);
+	mModuleNames = lua["modules"];
 }
 
 bool Engine::init()
@@ -114,6 +82,9 @@ void Engine::render()
 
 vint Engine::loadModules()
 {
+	vforeach(mModuleNames.begin(), mModuleNames.end(), [](vstring &moduleName) {
+		loadModule(moduleName.c_str());
+	});
 }
 
 vint Engine::loadModule(vlcstr name)
@@ -123,7 +94,8 @@ vint Engine::loadModule(vlcstr name)
 	{
 		return VERR;
 	}
-	LPFNStartFunc lpstartfunc = (LPFNStartFunc)GetProcAddress(hdll, "dllStartPlugin");
+	//LPFNStartFunc lpstartfunc = (LPFNStartFunc)GetProcAddress(hdll, "dllStartPlugin");
+	LPFNStartFunc lpstartfunc = (LPFNStartFunc)vgetsym(hdll, "dllStartPlugin");
 	if (lpstartfunc == NULL)
 	{
 		vfreelib(hdll);
@@ -136,31 +108,11 @@ vint Engine::loadModule(vlcstr name)
 	return VOK;
 }
 
-/*
-int Engine::unloadPlugin(vlcstr name)
-{
-	vhdll hdll = mPluginMap[name];
-	if (hdll == NULL){
-		return VERR;
-	}
-	LPFNStopFunc lpstopfunc = (LPFNStopFunc)GetProcAddress(hdll, "dllStopPlugin");
-	if (lpstopfunc){
-		lpstopfunc();
-		vfreelib(hdll);
-		return VOK;
-	}
-	else
-	{
-		return VERR;
-	}
-}
-*/
-
 vint Engine::unloadModules()
 {
 	for (auto hdll : mModuleList)
 	{
-		LPFNStopFunc lpstopfunc = (LPFNStopFunc)GetProcAddress(hdll, "dllStopPlugin");
+		LPFNStopFunc lpstopfunc = (LPFNStopFunc)vgetsym(hdll, "dllStopPlugin");
 		if (lpstopfunc)
 		{
 			lpstopfunc();
@@ -171,37 +123,4 @@ vint Engine::unloadModules()
 	}
 	mModuleList.clear();
 	return VOK;
-}
-
-vptr<LogMgr> Engine::getLogMgr()
-{
-	return mLogMgr;
-}
-
-int Engine::setLogMgr(vptr<LogMgr> logMgr)
-{
-	mLogMgr = logMgr;
-	if (!mLogMgr)
-		return VERR;
-	else
-		return VOK;
-}
-
-vptr<Renderer> Engine::getRenderer()
-{
-	return mRenderer;
-}
-
-int Engine::setRenderer(vptr<Renderer> renderer)
-{
-	mRenderer = renderer;
-	if (!mRenderer)
-		return VERR;
-	else
-		return VOK;
-}
-
-vptr<Config> valkyr::Engine::getConfig()
-{
-	return mConfig;
 }

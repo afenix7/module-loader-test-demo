@@ -2,7 +2,7 @@
 workspace "walkyrie"
 	startproject "vapp"
 	configurations { "Debug", "Release", "DebugDLL", "ReleaseDLL","DebugLib","ReleaseLib"}
-	platforms { "Win32", "Win64"}
+	platforms { "Win32", "Win64",}
 	location "../build"
 	
 	filter "configurations:Debug*"
@@ -10,7 +10,7 @@ workspace "walkyrie"
 		flags { "MultiProcessorCompile" }
 		symbols "On"
 		warnings "Extra"
-		libdirs {"../lib/%{cfg.platform}_%{cfg.buildcfg}","../bin/%{cfg.platform}_%{cfg.buildcfg}"}
+		libdirs {"../lib/%{cfg.platform}_%{cfg.buildcfg}","../bin/%{cfg.platform}_%{cfg.buildcfg}","../extern/lua/%{cfg.platform}_%{cfg.buildcfg}"}
 		targetdir "../bin/%{cfg.platform}_%{cfg.buildcfg}"
 		objdir "../obj/%{cfg.platform}_%{cfg.buildcfg}"
 
@@ -19,7 +19,7 @@ workspace "walkyrie"
 		flags { "MultiProcessorCompile" }
 		symbols "Off"
 		optimize "On"
-		libdirs {"../lib/%{cfg.platform}_%{cfg.buildcfg}","../bin/%{cfg.platform}_%{cfg.buildcfg}"}
+		libdirs {"../lib/%{cfg.platform}_%{cfg.buildcfg}","../bin/%{cfg.platform}_%{cfg.buildcfg}","../extern/lua/%{cfg.platform}_%{cfg.buildcfg}"}
 		targetdir "../bin/%{cfg.platform}_%{cfg.buildcfg}"
 		objdir "../obj/%{cfg.platform}_%{cfg.buildcfg}"
 		
@@ -31,29 +31,42 @@ workspace "walkyrie"
 		kind "StaticLib"
 	
 	filter { "platforms:Win32" }
-		system "Windows"
+		system "windows"
 		architecture "x32"
 		defines {"_WINDOWS","WIN32"}
 
 	filter { "platforms:Win64" }
-		system "Windows"
+		system "windows"
 		defines {"_WINDOWS","WIN64"}
-		architecture "x86_64"
+		architecture "x64"
+	filter { "platforms:Linux32" }
+		system "linux"
+		defines {"_LINUX"}
+		architecture "x32"
+	filter { "platforms:Linux64" }
+		system "linux"
+		defines {"_LINUX"}
+		architecture "x64"
+	filter { "platforms:Mac64" }
+		system "macosx"
+		defines {"_MACOSX"}
+		architecture "x64"
+
 
 	
 project "valkyr"
 	configurations {"DebugDLL","ReleaseDLL"}
 	kind "SharedLib"
 	location "../build"
-	--defines {"_WINDLL"}
 	language "C++"
+	links {"lua"}
+	includedirs {"../extern/sol","../extern/hlslpp"}
 	files {
 		"../valkyr/*.h","../valkyr/*.cpp","../valkyr/core/*.h","../valkyr/log/*.h","../valkyr/net/*.h","../valkyr/physics/*.h","../valkyr/script/*.h","../valkyr/render/*.h","../valkyr/engine/*.h","../valkyr/engine/*.cpp",
 		"../valkyr/ecs/*.h","../valkyr/ecs/*.cpp"
 	}
 
 project "Log"
-    --should change AFX to std::string
 	configurations {"DebugDLL","ReleaseDLL"}
 	kind "SharedLib"
 	location "../build"
@@ -91,11 +104,7 @@ project "vtest"
 	location "../build"
 	language "C++"
 	files {"../vtest/*.h","../vtest/*.cpp"}
+	links {"valkyr"}
 
-project "lua53"
-	kind "StaticLib"
-	configurations {"DebugLib","ReleaseLib"}
-	location "../build"
-	language "C"
-	files {"../extern/lua/*.h","../extern/lua/*.cpp"}
+
 

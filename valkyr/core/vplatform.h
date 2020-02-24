@@ -40,9 +40,10 @@ using vint = unsigned int;
 
 //#define vwindow(hinstance,classname,title,w,h) CreateWindow(classname,title,WS_OVERLAPPEDWINDOW,CW_USEDEFAULT, CW_USEDEFAULT,w,h,NULL,NULL,hinstance,NULL);
 
-#elif defined _LINUX
+#else
 
 #define CALLBACK _stdcall
+#define NULL 0
 
 #define vhwnd void *
 #define vhdll void *

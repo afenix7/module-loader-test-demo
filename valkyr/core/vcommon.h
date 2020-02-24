@@ -1,7 +1,6 @@
 #pragma once
 
 #include "vplatform.h"
-#include "vstrview.h"
+#include "vstr.h"
 #include "vptr.h"
-
 

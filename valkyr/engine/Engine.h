@@ -1,12 +1,14 @@
 #pragma once
 
-#include <vector>
-#include <map>
 #include <iostream>
 #include "../core/vcommon.h"
+#include "../core/vmodule.h"
+#include "../container/vec.h"
+#include "../container/algorithm.h"
 #include "../log/LogMgr.h"
-#include "../engine/IFramePlugin.h"
+#include "../engine/IFramePlugin.h "
 #include "../render/Renderer.h"
+#include "../../extern/sol/sol.hpp"
 
 #define VALKYR_EXPORTS
 
@@ -21,10 +23,6 @@ typedef void(CALLBACK *LPFNStopFunc)();
 
 namespace valkyr
 {
-
-const vstr struct Config
-{
-};
 
 class VALKYR_API Engine
 {
@@ -51,12 +49,52 @@ public:
 	{
 		return mHwnd;
 	}
-	inline void setWidth(vint width){
-		
+	inline void setWidth(vint width)
+	{
+		mWidth = width;
 	}
-	vint getWidth();
-	void setHeight(vint height);
-	vint getHeight();
+	inline vint getWidth()
+	{
+		return mWidth;
+	}
+	inline void setHeight(vint height)
+	{
+		mHeight = height;
+	}
+	inline vint getHeight()
+	{
+		return mHeight;
+	}
+	inline sol::table getConfig()
+	{
+		return mConfig;
+	}
+	vptr<LogMgr> getLogMgr()
+	{
+		return mLogMgr;
+	}
+	int Engine::setLogMgr(vptr<LogMgr> logMgr)
+	{
+		mLogMgr = logMgr;
+		if (!mLogMgr)
+			return VERR;
+		else
+			return VOK;
+	}
+	vptr<Renderer> Engine::getRenderer()
+	{
+		return mRenderer;
+	}
+
+	int Engine::setRenderer(vptr<Renderer> renderer)
+	{
+		mRenderer = renderer;
+		if (!mRenderer)
+			return VERR;
+		else
+			return VOK;
+	}
+
 	//bool loadConfig();
 	//void createWindow(vhwnd hwnd,vint width,vint height);
 	bool init();
@@ -65,21 +103,15 @@ public:
 	void render();
 	bool stop();
 	vint loadModules();
-	vint loadModule(vlcstr name);
+	vint loadModule(vcstr name);
 	//template <class T> vint installPlugin(T plugin);
 	//template <IFramePlugin> vint installPlugin()
 	//int unloadPlugin(vcstr name);
 	vint unloadModules();
-	vptr<LogMgr> getLogMgr();
-	int setLogMgr(vptr<LogMgr> logMgr);
-	vptr<Renderer> getRenderer();
-	int setRenderer(vptr<Renderer> renderer);
-	inline vptr<Config> getConfig()
-	{
-	}
 
 private:
 	Engine();
+	void initConfig();
 
 	//vuni_ptr not suitable for singleton
 	//not need use shared_ptr, or will face "can not visit private member"
@@ -88,10 +120,10 @@ private:
 	vint mWidth, mHeight;
 	vptr<LogMgr> mLogMgr;
 	vptr<Renderer> mRenderer;
-	std::map<vcstr, vhdll> mModuleMap;
-	std::vector<vhdll> mModuleList;
-	Config mConfig;
-	lua_State *L = nullptr;
+	vec<vstring> mModuleNames;
+	vec<vhdll> mModuleList;
+	sol::table mConfig;
+	sol::state lua;
 };
 
 } // namespace valkyr
