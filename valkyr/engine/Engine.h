@@ -73,7 +73,7 @@ public:
 	{
 		return mLogMgr;
 	}
-	int Engine::setLogMgr(vptr<LogMgr> logMgr)
+	int setLogMgr(vptr<LogMgr> logMgr)
 	{
 		mLogMgr = logMgr;
 		if (!mLogMgr)
@@ -81,12 +81,12 @@ public:
 		else
 			return VOK;
 	}
-	vptr<Renderer> Engine::getRenderer()
+	vptr<Renderer> getRenderer()
 	{
 		return mRenderer;
 	}
 
-	int Engine::setRenderer(vptr<Renderer> renderer)
+	int setRenderer(vptr<Renderer> renderer)
 	{
 		mRenderer = renderer;
 		if (!mRenderer)
@@ -103,7 +103,7 @@ public:
 	void render();
 	bool stop();
 	vint loadModules();
-	vint loadModule(vcstr name);
+	vint loadModule(vlcstr name);
 	//template <class T> vint installPlugin(T plugin);
 	//template <IFramePlugin> vint installPlugin()
 	//int unloadPlugin(vcstr name);
