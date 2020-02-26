@@ -3,8 +3,8 @@
 #include "vmath.h"
 #include <map>
 
-using namespace std;
-
+namespace valkyr
+{
 class Bundle
 {
 public:
@@ -16,41 +16,41 @@ public:
 	{
 	}
 
-	void putInt(vstr id, vint item)
+	void putInt(vcstr key, vint item)
 	{
-		intMap[id] = item;
+		intMap[key] = item;
 	}
-	void putCStr(vstr id, vcstr item)
+	void putCStr(vcstr key, vcstr item)
 	{
-		cstrMap[id] = item;
+		cstrMap[key] = item;
 	}
-	void putDouble(vstr id, vdouble item)
+	void putDouble(vcstr key, vdouble item)
 	{
-		doubleMap[id] = item;
+		doubleMap[key] = item;
 	}
-	void putFloat3(vstr id, vfloat3 item)
+	void putFloat3(vcstr key, vfloat3 item)
 	{
-		float3Map[id] = item;
-	}
-
-	vint getInt(vstr id)
-	{
-		return intMap[id];
+		float3Map[key] = item;
 	}
 
-	double getDouble(vstr id)
+	vint getInt(vcstr key)
 	{
-		return doubleMap[id];
+		return intMap[key];
 	}
 
-	vcstr getCstr(vstr id)
+	double getDouble(vcstr key)
 	{
-		return cstrMap[id];
+		return doubleMap[key];
 	}
 
-	float3 getFloat3(vstr id)
+	vcstr getCstr(vcstr key)
 	{
-		return float3Map[id];
+		return cstrMap[key];
+	}
+
+	vfloat3 getFloat3(vcstr key)
+	{
+		return float3Map[key];
 	}
 
 	void clear()
@@ -62,8 +62,9 @@ public:
 	}
 
 private:
-	map<vint, vint> intMap;
-	map<vint, vcstr> cstrMap;
-	map<vint, vdouble> doubleMap;
-	map<vint, vfloat3> float3Map;
+	std::map<vcstr, vint> intMap;
+	std::map<vcstr, vcstr> cstrMap;
+	std::map<vcstr, double> doubleMap;
+	std::map<vcstr, vfloat3> float3Map;
 };
+} // namespace valkyr

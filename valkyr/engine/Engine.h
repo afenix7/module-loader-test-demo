@@ -64,13 +64,13 @@ public:
 	inline vint getHeight()
 	{
 		return mHeight;
-	}
+	} 
 	inline sol::table getConfig()
 	{
 		return mConfig;
 	}
 	vptr<LogMgr> getLogMgr()
-	{
+	{ 
 		return mLogMgr;
 	}
 	int setLogMgr(vptr<LogMgr> logMgr)

@@ -2,6 +2,18 @@
 
 #include "../../extern/hlslpp/include/hlsl++.h"
 
+namespace valkyr
+{
+using vfloat2 = hlslpp::float2;
+using vfloat3 = hlslpp::float3;
+using vfloat4 = hlslpp::float4;
+using vuv = hlslpp::float2;
+
+using vint2 = hlslpp::int2;
+using vint3 = hlslpp::int3;
+using vint4 = hlslpp::int4;
+} // namespace valkyr
+
 /*
 #ifdef _WINDOWS
 
