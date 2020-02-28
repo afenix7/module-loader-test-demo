@@ -1,6 +1,9 @@
 //#include "stdafx.h"
 #include "./Engine.h"
 #include "assert.h"
+#ifdef MODULE_EMBED
+#include "modules_gen.h"
+#endif
 
 using namespace valkyr;
 
