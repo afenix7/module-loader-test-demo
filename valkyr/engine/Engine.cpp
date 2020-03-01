@@ -2,7 +2,7 @@
 #include "./Engine.h"
 #include "assert.h"
 #ifdef MODULE_EMBED
-#include "modules_gen.h"
+#include "modules.gen.h"
 #endif
 
 using namespace valkyr;
@@ -22,8 +22,8 @@ void Engine::initConfig()
 	lua.open_libraries(sol::lib::base);
 	lua.script_file("valkyr.lua");
 	mConfig = lua["config"];
-	mWidth = mConfig["width"].get_or(0);
-	mHeight = mConfig["height"].get_or(0);
+	mWidth = mConfig["gfx"].get_or("width",0);
+	mHeight = mConfig["gfx"].get_or("height",0);
 	mModuleNames = lua["modules"];
 }
 
@@ -85,9 +85,13 @@ void Engine::render()
 
 vint Engine::loadModules()
 {
+#ifdef MODULE_EMBED
+	
+#else
 	vforeach(mModuleNames.begin(), mModuleNames.end(), [](vstring &moduleName) {
 		loadModule(moduleName.c_str());
 	});
+#endif
 }
 
 vint Engine::loadModule(vlcstr name)
@@ -113,6 +117,9 @@ vint Engine::loadModule(vlcstr name)
 
 vint Engine::unloadModules()
 {
+#ifdef MODULE_EMBED
+
+#else
 	for (auto hdll : mModuleList)
 	{
 		LPFNStopFunc lpstopfunc = (LPFNStopFunc)vgetsym(hdll, "dllStopPlugin");
@@ -126,4 +133,5 @@ vint Engine::unloadModules()
 	}
 	mModuleList.clear();
 	return VOK;
+#endif
 }

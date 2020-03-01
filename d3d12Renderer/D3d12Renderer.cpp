@@ -13,7 +13,7 @@ D3d12Renderer::~D3d12Renderer()
 }
 
 
-vint D3d12Renderer::initGraphics(vptr<Bundle> config,vhwnd hwnd)
+vint D3d12Renderer::initGraphics(sol::table config,vhwnd hwnd)
 {
 	HRESULT hr = S_OK;
 	UINT createDeviceFlags = 0;
@@ -37,8 +37,8 @@ vint D3d12Renderer::initGraphics(vptr<Bundle> config,vhwnd hwnd)
 	DXGI_SWAP_CHAIN_DESC sd;
 	ZeroMemory(&sd, sizeof(sd));
 	sd.BufferCount = 1;
-	sd.BufferDesc.Width = config->getInt(CONFIG_WIDTH);
-	sd.BufferDesc.Height = config->getInt(CONFIG_HEIGHT);
+	sd.BufferDesc.Width = config.get_or("width",800);
+	sd.BufferDesc.Height = config.get_or("height",600);
 	sd.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
 	sd.BufferDesc.RefreshRate.Numerator = config->getInt(CONFIG_REFRESH_RATE);
 	sd.BufferDesc.RefreshRate.Denominator = 1;

@@ -29,7 +29,7 @@ public:
 	D3d12Renderer();
 	virtual ~D3d12Renderer();
 
-	virtual vint initGraphics(vptr<Bundle> pConfig,vhwnd hwnd) override;
+	virtual vint initGraphics(sol::table config,vhwnd hwnd) override;
 	//virtual vint loadRes();
 	//virtual void start();
 	//virtual void stop();

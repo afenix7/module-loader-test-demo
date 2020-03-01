@@ -4,6 +4,7 @@
 #include "../valkyr/core/vplatform.h"
 #include "../valkyr/core/vptr.h"
 #include "../valkyr/render/Renderer.h"
+#include "../valkyr/core/vmath.h"
 #include <dxgi.h>
 #include <d3d11.h>
 #include <d3dcompiler.h>
@@ -18,9 +19,9 @@ struct SimpleVertex
 
 struct ConstantBuffer
 {
-	vMatrix mWorld; 
-	vMatrix mView; 
-	vMatrix mProjection;  
+	vfloat4x4 mWorld; 
+	vfloat4x4 mView; 
+	vfloat4x4 mProjection;  
 };
 
 class D3d11Renderer:public Renderer
@@ -29,7 +30,7 @@ public:
 	D3d11Renderer();
 	virtual ~D3d11Renderer();
 
-	virtual vint initGraphics(vptr<Bundle> pConfig,vhwnd hwnd) override;
+	virtual vint initGraphics(sol::table config,vhwnd hwnd) override;
 	//virtual vint loadRes();
 	//virtual void start();
 	//virtual void stop();
@@ -63,9 +64,9 @@ private:
 
 	ID3D11RenderTargetView* m_pMainRTV = NULL;
 
-	vMatrix                m_World;
-	vMatrix                m_View;
-	vMatrix                m_Projection;
+	vfloat4x4                m_World;
+	vfloat4x4                m_View;
+	vfloat4x4                m_Projection;
 
 };
 

@@ -13,7 +13,7 @@ D3d11Renderer::~D3d11Renderer()
 }
 
 
-vint D3d11Renderer::initGraphics(vptr<Bundle> config,vhwnd hwnd)
+vint D3d11Renderer::initGraphics(sol::table config,vhwnd hwnd)
 {
 	HRESULT hr = S_OK;
 	UINT createDeviceFlags = 0;
@@ -37,15 +37,16 @@ vint D3d11Renderer::initGraphics(vptr<Bundle> config,vhwnd hwnd)
 	DXGI_SWAP_CHAIN_DESC sd;
 	ZeroMemory(&sd, sizeof(sd));
 	sd.BufferCount = 1;
-	sd.BufferDesc.Width = config->getInt(CONFIG_WIDTH);
-	sd.BufferDesc.Height = config->getInt(CONFIG_HEIGHT);
+	sd.BufferDesc.Width = config.get_or("width",800);
+	sd.BufferDesc.Height = config.get_or("height",600);
 	sd.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
-	sd.BufferDesc.RefreshRate.Numerator = config->getInt(CONFIG_REFRESH_RATE);
+	sd.BufferDesc.RefreshRate.Numerator = config.get_or("refreshRate",60);
 	sd.BufferDesc.RefreshRate.Denominator = 1;
 	sd.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
 	sd.OutputWindow = hwnd;
-	sd.Windowed = config->getInt(CONFIG_WINDOWED);
-	sd.SampleDesc.Count = config->getInt(CONFIG_MSAACOUNT);
+	//BOOL == int, FALSE == 0 
+	sd.Windowed = config.get_or("windowed",FALSE);
+	sd.SampleDesc.Count = config.get_or("msaaCount",0);
 	UINT qualityLevel;
 	for (UINT driverTypeIndex = 0; driverTypeIndex < numDriverTypes; driverTypeIndex++)
 	{
@@ -88,8 +89,8 @@ vint D3d11Renderer::initGraphics(vptr<Bundle> config,vhwnd hwnd)
 	vp.Width = (FLOAT)config.width;
 	vp.Height = (FLOAT)config.height;
 	*/
-	vp.Width = config->getDouble(CONFIG_WIDTH);
-	vp.Height = config->getDouble(CONFIG_HEIGHT);
+	vp.Width = config.get_or("width",800);
+	vp.Height = config.get_or("height",600);
 	vp.MinDepth = 0.0f;
 	vp.MaxDepth = 1.0f;
 	vp.TopLeftX = 0;

@@ -12,6 +12,8 @@ using vuv = hlslpp::float2;
 using vint2 = hlslpp::int2;
 using vint3 = hlslpp::int3;
 using vint4 = hlslpp::int4;
+
+using vfloat4x4 = hlslpp::float4x4;
 } // namespace valkyr
 
 /*
