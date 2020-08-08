@@ -14,6 +14,7 @@ using imax = std::intmax_t;
 using umax = std::uintmax_t;
 using vsize = std::size_t;
 using vint = unsigned int;
+
 #define VOK 1
 #define VERR 0
 } // namespace valkyr

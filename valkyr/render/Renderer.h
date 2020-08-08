@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../engine/IRenderPlugin.h"
-#include "../../extern/sol/sol.hpp"
+#include "sol/sol.hpp"
 
 namespace valkyr
 {

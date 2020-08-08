@@ -1,6 +1,7 @@
 #pragma once
 
 #include <algorithm>
-
-template <class Iter, class F>
-using vforeach = std::for_each<Iter, F>;
+namespace valkyr {
+	template <class K, class V, class F>
+	using vforeach = std::for_each<K, V, F>;
+};

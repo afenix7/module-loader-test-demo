@@ -5,20 +5,20 @@
 
 namespace valkyr
 {
-
-	enum class LogLevel
-	{
-		standard,
-		warn,
-		error
-	};
-
 	class LogMgr
 	{
+
 	public:
-		LogMgr(){};
+		enum class LogLevel
+		{
+			standard,
+			warn,
+			error
+		};
+
+		LogMgr() {};
 		virtual ~LogMgr() {};
-		virtual void log(vstring title, vstring content, LogLevel level)=0;
+		virtual void log(vstring title, vstring content, LogLevel level) = 0;
 	};
 
 }

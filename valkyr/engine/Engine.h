@@ -1,5 +1,6 @@
 #pragma once
 
+
 #include <iostream>
 #include "../core/vcommon.h"
 #include "../core/vmodule.h"
@@ -8,7 +9,9 @@
 #include "../log/LogMgr.h"
 #include "../engine/IFramePlugin.h "
 #include "../render/Renderer.h"
-#include "../../extern/sol/sol.hpp"
+#define SOL_ALL_SAFETIES_ON 1
+
+#include <sol/sol.hpp>
 
 #define VALKYR_EXPORTS
 

@@ -24,7 +24,7 @@ public:
 	{
 		cstrMap[key] = item;
 	}
-	void putDouble(vcstr key, vdouble item)
+	void putDouble(vcstr key, double item)
 	{
 		doubleMap[key] = item;
 	}

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "vplatform.h"
+#include "../core/vplatform.h"
 #include <array>
 
 namespace valkyr
